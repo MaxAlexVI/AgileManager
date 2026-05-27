@@ -1,0 +1,384 @@
+{
+  "users": [
+    {
+      "id": "USR-001",
+      "name": "Виктор Пелевин",
+      "roleId": "manager",
+      "role": "Руководитель",
+      "email": "viktor@example.local",
+      "password": "manager2026"
+    },
+    {
+      "id": "USR-002",
+      "name": "Мишель Фуко",
+      "roleId": "developer",
+      "role": "Пользователь",
+      "email": "michel@example.local",
+      "password": "user2026"
+    },
+    {
+      "id": "USR-003",
+      "name": "Роберт Смит",
+      "roleId": "developer",
+      "role": "Пользователь",
+      "email": "robert@example.local",
+      "password": "user2026"
+    },
+    {
+      "id": "USR-004",
+      "name": "Сергей Лебедев",
+      "roleId": "developer",
+      "role": "Пользователь",
+      "email": "sergey.lebedev@example.local",
+      "password": "user2026"
+    },
+    {
+      "id": "USR-005",
+      "name": "Елена Морозова",
+      "roleId": "admin",
+      "role": "Администратор",
+      "email": "elena.morozova@example.local",
+      "password": "admin2026"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "TASK-001",
+      "title": "Согласовать критерии приемки MVP",
+      "description": "Собрать список обязательных сценариев для первой версии: вход, роли, доска задач, спринты, отметка выполнения и базовая аналитика.",
+      "status": "backlog",
+      "priority": "high",
+      "assigneeId": "USR-001",
+      "reporterId": "USR-005",
+      "dueDate": "2026-05-30",
+      "storyPoints": 3,
+      "sprintId": "SPR-002",
+      "createdAt": "2026-05-18T09:10:00Z",
+      "updatedAt": "2026-05-24T12:20:00Z",
+      "completedAt": "0001-01-01T00:00:00Z",
+      "workDone": false,
+      "workDoneAt": "0001-01-01T00:00:00Z",
+      "comments": [
+        {
+          "id": "CMT-001",
+          "taskId": "TASK-001",
+          "authorId": "USR-005",
+          "text": "После согласования критериев можно закрывать набор требований для MVP.",
+          "createdAt": "2026-05-18T10:25:00Z"
+        }
+      ]
+    },
+    {
+      "id": "TASK-002",
+      "title": "Доработать авторизацию и роли",
+      "description": "Проверить, что пользователь не может попасть в рабочее пространство без входа, а руководитель и обычный пользователь видят разные наборы действий.",
+      "status": "todo",
+      "priority": "critical",
+      "assigneeId": "USR-002",
+      "reporterId": "USR-001",
+      "dueDate": "2026-05-27",
+      "storyPoints": 5,
+      "sprintId": "SPR-001",
+      "createdAt": "2026-05-19T08:40:00Z",
+      "updatedAt": "2026-05-25T15:30:00Z",
+      "completedAt": "0001-01-01T00:00:00Z",
+      "workDone": false,
+      "workDoneAt": "0001-01-01T00:00:00Z",
+      "comments": []
+    },
+    {
+      "id": "TASK-003",
+      "title": "Собрать очередь задач на проверку",
+      "description": "Добавить сценарий, при котором работник отмечает задачу выполненной, а руководитель принимает решение о переносе на следующий этап.",
+      "status": "in_progress",
+      "priority": "high",
+      "assigneeId": "USR-003",
+      "reporterId": "USR-001",
+      "dueDate": "2026-05-28",
+      "storyPoints": 8,
+      "sprintId": "SPR-001",
+      "createdAt": "2026-05-20T11:15:00Z",
+      "updatedAt": "2026-05-26T08:15:00Z",
+      "completedAt": "0001-01-01T00:00:00Z",
+      "workDone": true,
+      "workDoneAt": "2026-05-26T08:15:00Z",
+      "comments": [
+        {
+          "id": "CMT-002",
+          "taskId": "TASK-003",
+          "authorId": "USR-003",
+          "text": "Основная логика готова, можно проверить поведение очереди руководителем.",
+          "createdAt": "2026-05-26T08:15:00Z"
+        }
+      ]
+    },
+    {
+      "id": "TASK-004",
+      "title": "Сделать окно просмотра спринта",
+      "description": "В карточке спринта должна быть возможность открыть подробности и увидеть задачи, исполнителей, статусы и прогресс.",
+      "status": "review",
+      "priority": "medium",
+      "assigneeId": "USR-004",
+      "reporterId": "USR-001",
+      "dueDate": "2026-05-29",
+      "storyPoints": 5,
+      "sprintId": "SPR-001",
+      "createdAt": "2026-05-21T13:00:00Z",
+      "updatedAt": "2026-05-26T07:40:00Z",
+      "completedAt": "0001-01-01T00:00:00Z",
+      "workDone": true,
+      "workDoneAt": "2026-05-26T07:40:00Z",
+      "comments": [
+        {
+          "id": "CMT-003",
+          "taskId": "TASK-004",
+          "authorId": "USR-004",
+          "text": "Добавил список задач в окне спринта. Нужна финальная проверка от руководителя.",
+          "createdAt": "2026-05-26T07:40:00Z"
+        }
+      ]
+    },
+    {
+      "id": "TASK-005",
+      "title": "Подготовить пользовательскую инструкцию",
+      "description": "Описать вход, роли, работу с доской, задачами, спринтами, пользователями, аналитикой и журналом активности.",
+      "status": "done",
+      "priority": "medium",
+      "assigneeId": "USR-001",
+      "reporterId": "USR-005",
+      "dueDate": "2026-05-25",
+      "storyPoints": 3,
+      "sprintId": "SPR-001",
+      "createdAt": "2026-05-19T14:30:00Z",
+      "updatedAt": "2026-05-25T17:10:00Z",
+      "completedAt": "2026-05-25T17:10:00Z",
+      "workDone": false,
+      "workDoneAt": "0001-01-01T00:00:00Z",
+      "comments": []
+    },
+    {
+      "id": "TASK-006",
+      "title": "Настроить управление пользователями",
+      "description": "Добавить форму создания и редактирования пользователей, выбор роли, email и управление паролем без отдельной базы данных.",
+      "status": "done",
+      "priority": "high",
+      "assigneeId": "USR-002",
+      "reporterId": "USR-001",
+      "dueDate": "2026-05-26",
+      "storyPoints": 8,
+      "sprintId": "SPR-001",
+      "createdAt": "2026-05-22T09:00:00Z",
+      "updatedAt": "2026-05-26T06:50:00Z",
+      "completedAt": "2026-05-26T06:50:00Z",
+      "workDone": false,
+      "workDoneAt": "0001-01-01T00:00:00Z",
+      "comments": [
+        {
+          "id": "CMT-004",
+          "taskId": "TASK-006",
+          "authorId": "USR-001",
+          "text": "Проверено: руководитель видит вкладку пользователей, обычный пользователь не видит.",
+          "createdAt": "2026-05-26T06:55:00Z"
+        }
+      ]
+    },
+    {
+      "id": "TASK-007",
+      "title": "Добавить фильтр Мои задачи",
+      "description": "На доске нужен быстрый переключатель, чтобы текущий пользователь видел только назначенные на него задачи.",
+      "status": "done",
+      "priority": "medium",
+      "assigneeId": "USR-003",
+      "reporterId": "USR-001",
+      "dueDate": "2026-05-24",
+      "storyPoints": 2,
+      "sprintId": "SPR-001",
+      "createdAt": "2026-05-20T15:20:00Z",
+      "updatedAt": "2026-05-24T16:45:00Z",
+      "completedAt": "2026-05-24T16:45:00Z",
+      "workDone": false,
+      "workDoneAt": "0001-01-01T00:00:00Z",
+      "comments": []
+    },
+    {
+      "id": "TASK-008",
+      "title": "Проверить адаптивность интерфейса",
+      "description": "Проверить, что доска, формы, вкладки и модальные окна не ломаются на небольших экранах и не перекрывают друг друга.",
+      "status": "in_progress",
+      "priority": "medium",
+      "assigneeId": "USR-004",
+      "reporterId": "USR-001",
+      "dueDate": "2026-05-31",
+      "storyPoints": 5,
+      "sprintId": "SPR-002",
+      "createdAt": "2026-05-23T12:10:00Z",
+      "updatedAt": "2026-05-25T11:35:00Z",
+      "completedAt": "0001-01-01T00:00:00Z",
+      "workDone": false,
+      "workDoneAt": "0001-01-01T00:00:00Z",
+      "comments": []
+    },
+    {
+      "id": "TASK-009",
+      "title": "Оформить отчет по архитектуре",
+      "description": "Подготовить краткое описание серверных сервисов, API, JSON-хранилища, авторизации и причин, почему проект оставлен одним приложением.",
+      "status": "todo",
+      "priority": "medium",
+      "assigneeId": "USR-001",
+      "reporterId": "USR-005",
+      "dueDate": "2026-06-02",
+      "storyPoints": 3,
+      "sprintId": "SPR-002",
+      "createdAt": "2026-05-24T10:00:00Z",
+      "updatedAt": "2026-05-24T10:00:00Z",
+      "completedAt": "0001-01-01T00:00:00Z",
+      "workDone": false,
+      "workDoneAt": "0001-01-01T00:00:00Z",
+      "comments": []
+    },
+    {
+      "id": "TASK-010",
+      "title": "Протестировать API задач",
+      "description": "Покрыть тестами запрет изменения задач работником, отметку выполнения, создание пользователей и базовые операции хранилища.",
+      "status": "review",
+      "priority": "high",
+      "assigneeId": "USR-002",
+      "reporterId": "USR-001",
+      "dueDate": "2026-05-28",
+      "storyPoints": 5,
+      "sprintId": "SPR-001",
+      "createdAt": "2026-05-21T09:30:00Z",
+      "updatedAt": "2026-05-25T13:25:00Z",
+      "completedAt": "0001-01-01T00:00:00Z",
+      "workDone": false,
+      "workDoneAt": "0001-01-01T00:00:00Z",
+      "comments": []
+    },
+    {
+      "id": "TASK-011",
+      "title": "Собрать финальные демонстрационные данные",
+      "description": "Заполнить JSON-хранилище реалистичными пользователями, задачами, спринтами, комментариями и журналом активности.",
+      "status": "in_progress",
+      "priority": "medium",
+      "assigneeId": "USR-003",
+      "reporterId": "USR-001",
+      "dueDate": "2026-05-26",
+      "storyPoints": 3,
+      "sprintId": "SPR-001",
+      "createdAt": "2026-05-26T07:20:00Z",
+      "updatedAt": "2026-05-26T09:00:00Z",
+      "completedAt": "0001-01-01T00:00:00Z",
+      "workDone": false,
+      "workDoneAt": "0001-01-01T00:00:00Z",
+      "comments": []
+    },
+    {
+      "id": "TASK-012",
+      "title": "Провести ретроспективу первого спринта",
+      "description": "Зафиксировать, что получилось хорошо, какие ограничения остались и какие улучшения стоит вынести в следующий спринт.",
+      "status": "backlog",
+      "priority": "low",
+      "assigneeId": "USR-001",
+      "reporterId": "USR-005",
+      "dueDate": "2026-06-03",
+      "storyPoints": 2,
+      "sprintId": "SPR-002",
+      "createdAt": "2026-05-25T16:00:00Z",
+      "updatedAt": "2026-05-25T16:00:00Z",
+      "completedAt": "0001-01-01T00:00:00Z",
+      "workDone": false,
+      "workDoneAt": "0001-01-01T00:00:00Z",
+      "comments": []
+    }
+  ],
+  "sprints": [
+    {
+      "id": "SPR-001",
+      "name": "MVP: рабочая доска",
+      "goal": "Собрать стабильную версию приложения с авторизацией, ролями, задачами, спринтами и базовой аналитикой.",
+      "startDate": "2026-05-20",
+      "endDate": "2026-05-31",
+      "status": "active",
+      "retrospective": ""
+    },
+    {
+      "id": "SPR-002",
+      "name": "Подготовка к защите",
+      "goal": "Довести интерфейс, документацию, тесты и демонстрационные данные до аккуратного состояния.",
+      "startDate": "2026-06-01",
+      "endDate": "2026-06-10",
+      "status": "planned",
+      "retrospective": ""
+    },
+    {
+      "id": "SPR-003",
+      "name": "Discovery и требования",
+      "goal": "Определить роли, основные сценарии и границы учебного проекта.",
+      "startDate": "2026-05-06",
+      "endDate": "2026-05-17",
+      "status": "closed",
+      "retrospective": "Команда быстро согласовала ключевые сценарии. В следующий раз стоит раньше зафиксировать правила доступа для работников."
+    }
+  ],
+  "notifications": [
+    {
+      "id": "NTF-001",
+      "type": "task.work_done",
+      "message": "Роберт Смит отметил задачу \"Собрать очередь задач на проверку\" выполненной",
+      "taskId": "TASK-003",
+      "userId": "USR-003",
+      "read": false,
+      "createdAt": "2026-05-26T08:15:00Z"
+    },
+    {
+      "id": "NTF-002",
+      "type": "task.work_done",
+      "message": "Сергей Лебедев отметил задачу \"Сделать окно просмотра спринта\" выполненной",
+      "taskId": "TASK-004",
+      "userId": "USR-004",
+      "read": false,
+      "createdAt": "2026-05-26T07:40:00Z"
+    },
+    {
+      "id": "NTF-003",
+      "type": "task.status",
+      "message": "Задача \"Настроить управление пользователями\" перемещена в Done",
+      "taskId": "TASK-006",
+      "userId": "USR-002",
+      "read": false,
+      "createdAt": "2026-05-26T06:50:00Z"
+    },
+    {
+      "id": "NTF-004",
+      "type": "sprint.updated",
+      "message": "Обновлен спринт: MVP: рабочая доска",
+      "read": false,
+      "createdAt": "2026-05-25T17:30:00Z"
+    },
+    {
+      "id": "NTF-005",
+      "type": "task.status",
+      "message": "Задача \"Подготовить пользовательскую инструкцию\" перемещена в Done",
+      "taskId": "TASK-005",
+      "userId": "USR-001",
+      "read": true,
+      "createdAt": "2026-05-25T17:10:00Z"
+    },
+    {
+      "id": "NTF-006",
+      "type": "task.created",
+      "message": "Создана задача: Собрать финальные демонстрационные данные",
+      "taskId": "TASK-011",
+      "userId": "USR-003",
+      "read": false,
+      "createdAt": "2026-05-26T07:20:00Z"
+    }
+  ],
+  "next": {
+    "comment": 4,
+    "notification": 6,
+    "sprint": 3,
+    "task": 12,
+    "user": 5
+  }
+}

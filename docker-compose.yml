@@ -1,0 +1,161 @@
+name: agile-manager
+
+x-app-build: &app-build
+  context: .
+  dockerfile: Dockerfile
+
+x-app-env: &app-env
+  DATABASE_URL: postgres://postgres:1234@postgres:5432/agile_manager?sslmode=disable
+
+services:
+  postgres:
+    image: postgres:18-alpine
+    environment:
+      POSTGRES_DB: agile_manager
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "1234"
+    ports:
+      - "15433:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d agile_manager"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  db-init:
+    build:
+      <<: *app-build
+      args:
+        SERVICE: db-init
+    environment:
+      <<: *app-env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"
+
+  user-service:
+    build:
+      <<: *app-build
+      args:
+        SERVICE: user-service
+    environment:
+      <<: *app-env
+    expose:
+      - "8081"
+    depends_on:
+      db-init:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O- http://localhost:8081/api/health >/dev/null || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  task-service:
+    build:
+      <<: *app-build
+      args:
+        SERVICE: task-service
+    environment:
+      <<: *app-env
+    expose:
+      - "8082"
+    depends_on:
+      db-init:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O- http://localhost:8082/api/health >/dev/null || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  sprint-service:
+    build:
+      <<: *app-build
+      args:
+        SERVICE: sprint-service
+    environment:
+      <<: *app-env
+    expose:
+      - "8083"
+    depends_on:
+      db-init:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O- http://localhost:8083/api/health >/dev/null || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  notification-service:
+    build:
+      <<: *app-build
+      args:
+        SERVICE: notification-service
+    environment:
+      <<: *app-env
+    expose:
+      - "8084"
+    depends_on:
+      db-init:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O- http://localhost:8084/api/health >/dev/null || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  analytics-service:
+    build:
+      <<: *app-build
+      args:
+        SERVICE: analytics-service
+    environment:
+      <<: *app-env
+    expose:
+      - "8085"
+    depends_on:
+      db-init:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O- http://localhost:8085/api/health >/dev/null || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  gateway:
+    build:
+      <<: *app-build
+      args:
+        SERVICE: agile-manager
+    environment:
+      <<: *app-env
+      USER_SERVICE_URL: http://user-service:8081
+      TASK_SERVICE_URL: http://task-service:8082
+      SPRINT_SERVICE_URL: http://sprint-service:8083
+      NOTIFICATION_SERVICE_URL: http://notification-service:8084
+      ANALYTICS_SERVICE_URL: http://analytics-service:8085
+    ports:
+      - "8080:8080"
+    depends_on:
+      user-service:
+        condition: service_healthy
+      task-service:
+        condition: service_healthy
+      sprint-service:
+        condition: service_healthy
+      notification-service:
+        condition: service_healthy
+      analytics-service:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O- http://localhost:8080/api/health >/dev/null || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  postgres-data:

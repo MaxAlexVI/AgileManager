@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Вход · Agile Manager</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <section class="login-screen" id="loginScreen">
+    <form class="login-card" id="loginForm">
+      <div>
+        <p class="eyebrow">Agile workspace</p>
+        <h1>Agile Manager</h1>
+        <p class="muted">Войдите под своей учетной записью, чтобы открыть рабочее пространство.</p>
+      </div>
+      <label>
+        <span>Логин</span>
+        <input id="loginLogin" autocomplete="username" required>
+      </label>
+      <label>
+        <span>Пароль</span>
+        <input id="loginPassword" type="password" autocomplete="current-password" required>
+      </label>
+      <button class="primary-button" type="submit">Войти</button>
+    </form>
+  </section>
+
+  <div class="toast-stack" id="toastStack" aria-live="polite" aria-atomic="false"></div>
+
+  <script src="/login.js"></script>
+</body>
+</html>

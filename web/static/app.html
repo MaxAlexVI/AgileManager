@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agile Manager</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <p class="eyebrow">Agile workspace</p>
+      <h1>Agile Manager</h1>
+    </div>
+    <div class="header-controls">
+      <div class="session-user">
+        <span>Вы вошли как</span>
+        <strong id="sessionUser">Пользователь</strong>
+      </div>
+      <button class="secondary-button" id="logoutButton">Выйти</button>
+    </div>
+  </header>
+
+  <main class="shell">
+    <nav class="tabs" aria-label="Разделы">
+      <button class="tab active" data-tab="board">Доска</button>
+      <button class="tab manager-tab" data-tab="review">Проверка</button>
+      <button class="tab" data-tab="sprints">Спринты</button>
+      <button class="tab" data-tab="analytics">Аналитика</button>
+      <button class="tab users-tab" data-tab="users">Пользователи</button>
+      <button class="tab" data-tab="activity">Активность</button>
+    </nav>
+
+    <section class="tab-panel active" id="boardPanel">
+      <div class="toolbar">
+        <button class="icon-button add-task-button" id="openTaskForm" title="Создать задачу" aria-label="Создать задачу">+</button>
+        <label class="search">
+          <span>Поиск</span>
+          <input id="taskSearch" type="search" placeholder="Название, описание, приоритет">
+        </label>
+        <label>
+          <span>Исполнитель</span>
+          <select id="assigneeFilter"></select>
+        </label>
+        <label>
+          <span>Спринт</span>
+          <select id="sprintFilter"></select>
+        </label>
+        <label class="toggle-filter">
+          <input id="myTasksOnly" type="checkbox">
+          <span>Мои</span>
+        </label>
+      </div>
+      <div class="board" id="board"></div>
+    </section>
+
+    <section class="tab-panel" id="reviewPanel">
+      <div class="list-panel">
+        <div class="section-head">
+          <div>
+            <p class="section-label">Готово к решению руководителя</p>
+            <h2>Ожидают проверки</h2>
+          </div>
+          <span class="count" id="reviewCount">0</span>
+        </div>
+        <div id="reviewList"></div>
+      </div>
+    </section>
+
+    <section class="tab-panel" id="sprintsPanel">
+      <div class="split">
+        <form class="panel-form" id="sprintForm">
+          <h2>Планирование спринта</h2>
+          <input type="hidden" id="sprintId">
+          <label>
+            <span>Название</span>
+            <input id="sprintName" required>
+          </label>
+          <label>
+            <span>Цель</span>
+            <textarea id="sprintGoal" rows="4"></textarea>
+          </label>
+          <div class="form-grid">
+            <label>
+              <span>Начало</span>
+              <input id="sprintStart" type="date">
+            </label>
+            <label>
+              <span>Завершение</span>
+              <input id="sprintEnd" type="date">
+            </label>
+          </div>
+          <label>
+            <span>Статус</span>
+            <select id="sprintStatus">
+              <option value="planned">Запланирован</option>
+              <option value="active">Активен</option>
+              <option value="closed">Закрыт</option>
+            </select>
+          </label>
+          <label>
+            <span>Ретроспектива</span>
+            <textarea id="sprintRetro" rows="4"></textarea>
+          </label>
+          <button class="primary-button" id="saveSprintButton" type="submit">Сохранить спринт</button>
+        </form>
+        <div class="list-panel" id="sprintList"></div>
+      </div>
+    </section>
+
+    <section class="tab-panel" id="analyticsPanel">
+      <div class="metrics" id="metrics"></div>
+      <div class="split analytics-grid">
+        <div class="list-panel">
+          <h2>Загрузка команды</h2>
+          <div id="teamLoad"></div>
+        </div>
+        <div class="list-panel">
+          <h2>Ближайшие дедлайны</h2>
+          <div id="dueSoon"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tab-panel" id="usersPanel">
+      <div class="split">
+        <form class="panel-form" id="userForm">
+          <h2>Пользователь</h2>
+          <input type="hidden" id="userId">
+          <label>
+            <span>Логин</span>
+            <input id="userLogin" autocomplete="username" required>
+          </label>
+          <label>
+            <span>Имя</span>
+            <input id="userName" required>
+          </label>
+          <label>
+            <span>Email</span>
+            <input id="userEmail" type="email">
+          </label>
+          <label>
+            <span>Роль</span>
+            <select id="userRole"></select>
+          </label>
+          <label>
+            <span>Пароль</span>
+            <input id="userPassword" type="text" placeholder="Оставьте пустым, чтобы не менять">
+          </label>
+          <menu>
+            <button class="secondary-button" id="resetUserForm" type="button">Новый</button>
+            <button class="primary-button" id="saveUserButton" type="submit">Сохранить</button>
+          </menu>
+        </form>
+        <div class="list-panel">
+          <h2>Команда</h2>
+          <div id="userList"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tab-panel" id="activityPanel">
+      <div class="list-panel">
+        <h2>Журнал активности</h2>
+        <div id="activityList"></div>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="taskDialog" class="task-window">
+    <form class="panel-form task-form" id="taskForm" method="dialog">
+      <div class="dialog-head">
+        <div>
+          <h2 id="taskFormTitle">Новая задача</h2>
+        </div>
+        <button class="icon-button" id="closeTaskDialog" type="button" title="Закрыть" aria-label="Закрыть">×</button>
+      </div>
+      <input type="hidden" id="taskId">
+      <div class="task-readonly-content" id="taskReadonlyContent" hidden>
+        <h3 id="readonlyTaskTitle"></h3>
+        <p id="readonlyTaskDescription"></p>
+      </div>
+      <div class="form-section task-content-section">
+        <h3>Содержание</h3>
+        <label>
+          <span>Название</span>
+          <input id="taskTitle" required maxlength="120">
+        </label>
+        <label>
+          <span>Описание</span>
+          <textarea id="taskDescription" rows="5"></textarea>
+        </label>
+      </div>
+      <div class="form-section task-planning-section">
+        <h3>Планирование</h3>
+        <div class="form-grid">
+          <label>
+            <span>Статус</span>
+            <select id="taskStatus"></select>
+          </label>
+          <label>
+            <span>Приоритет</span>
+            <select id="taskPriority">
+              <option value="low">Низкий</option>
+              <option value="medium">Средний</option>
+              <option value="high">Высокий</option>
+              <option value="critical">Критический</option>
+            </select>
+          </label>
+        </div>
+        <div class="form-grid">
+          <label>
+            <span>Исполнитель</span>
+            <select id="taskAssignee"></select>
+          </label>
+          <label>
+            <span>Story points</span>
+            <input id="taskPoints" type="number" min="0" max="40" value="3">
+          </label>
+        </div>
+        <div class="form-grid">
+          <label>
+            <span>Дедлайн</span>
+            <input id="taskDue" type="date">
+          </label>
+          <label>
+            <span>Спринт</span>
+            <select id="taskSprint"></select>
+          </label>
+        </div>
+      </div>
+      <menu>
+        <button class="secondary-button" id="cancelTaskDialog" type="button">Отмена</button>
+        <button class="primary-button" id="saveTaskButton" type="submit">Сохранить</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <dialog id="completeDialog" class="task-window">
+    <form class="panel-form task-form" id="completeForm" method="dialog">
+      <div class="dialog-head">
+        <div>
+          <p class="section-label">Отметка выполнения</p>
+          <h2 id="completeTaskTitle">Работа выполнена</h2>
+        </div>
+        <button class="icon-button" id="closeCompleteDialog" type="button" title="Закрыть" aria-label="Закрыть">×</button>
+      </div>
+      <input type="hidden" id="completeTaskId">
+      <label>
+        <span>Комментарий к выполнению</span>
+        <textarea id="completeComment" rows="5" placeholder="Можно оставить комментарий: что было сделано, что важно знать руководителю или следующему участнику процесса"></textarea>
+      </label>
+      <menu>
+        <button class="secondary-button" id="cancelCompleteDialog" type="button">Отмена</button>
+        <button class="primary-button" type="submit">Отметить выполненной</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <dialog id="sprintDialog" class="task-window">
+    <div class="panel-form task-form">
+      <div class="dialog-head">
+        <div>
+          <p class="section-label">Спринт</p>
+          <h2 id="sprintDialogTitle">Спринт</h2>
+        </div>
+        <button class="icon-button" id="closeSprintDialog" type="button" title="Закрыть" aria-label="Закрыть">×</button>
+      </div>
+      <div class="sprint-dialog-meta" id="sprintDialogMeta"></div>
+      <p class="dialog-text" id="sprintDialogGoal"></p>
+      <div class="list-panel compact-panel">
+        <h2>Задачи спринта</h2>
+        <div id="sprintTaskList"></div>
+      </div>
+    </div>
+  </dialog>
+
+  <div class="toast-stack" id="toastStack" aria-live="polite" aria-atomic="false"></div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
